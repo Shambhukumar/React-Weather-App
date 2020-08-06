@@ -1,0 +1,9 @@
+.mapContainer {
+  margin-top: 10px;
+  height: 50vh;
+  @media (max-width: 1150px) {
+    height: 54.5vh;
+  }
+  width: 43vw;
+  border-radius: 29px;
+}

@@ -1,0 +1,51 @@
+.App {
+  @media (max-width: 900px) {
+    display: none;
+  }
+  transition: all ease-in 0.5s;
+  overflow-x: hidden;
+  flex-grow: 1;
+  height: 100vh;
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(2, 41, 1, 0.63),
+      rgba(2, 34, 18, 0.753)
+    ),
+    url("./components//images//beach-clouds-dark-dark-clouds-1154510.jpg");
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: cover;
+
+  &__Section {
+    display: flex;
+    flex-direction: row;
+    padding: 0rem 4rem 0rem 3rem;
+    @media (max-width: 1100px) {
+      padding: 0rem 2rem 0rem 2rem;
+    }
+    @media (max-width: 1000px) {
+      padding: 0rem 1rem 0rem 1rem;
+    }
+
+    &--1 {
+      width: 50%;
+    }
+    &--2 {
+      margin-left: 10%;
+      @media (max-width: 1100px) {
+        margin-left: 5%;
+      }
+      @media (max-width: 1000px) {
+        margin-left: 2%;
+      }
+      width: 50%;
+      height: 85vh;
+    }
+  }
+}
+.error {
+  display: none;
+  @media (max-width: 900px) {
+    display: block;
+  }
+}
