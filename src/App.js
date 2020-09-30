@@ -34,7 +34,7 @@ class App extends React.Component {
     this.setState({ locations });
     try {
       results = await axios.get(
-        `https://cors-anywhere.herokuapp.com/https://dev.virtualearth.net/REST/v1/Locations?q=${query}&output=json&key=${process.env.REACT_APP_BINGMAP_KEY}`
+        `https://dev.virtualearth.net/REST/v1/Locations?q=${query}&output=json&key=${process.env.REACT_APP_BINGMAP_KEY}`
       );
 
       if (results) {
