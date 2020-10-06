@@ -34,7 +34,7 @@ class App extends React.Component {
     this.setState({ locations });
     try {
       results = await axios.get(
-        `https://cors-anywhere.herokuapp.com/https://dev.virtualearth.net/REST/v1/Locations?q=${query}&output=json&key=${process.env.REACT_APP_BINGMAP_KEY}`
+        `https://dev.virtualearth.net/REST/v1/Locations?q=${query}&output=json&key=${process.env.REACT_APP_BINGMAP_KEY}`
       );
 
       if (results) {
@@ -70,7 +70,7 @@ class App extends React.Component {
     this.setState({ loading: true });
     try {
       const Data = await axios(
-        `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${process.env.REACT_APP_DARKSKY_KEY}/${quardinates[0]},${quardinates[1]}?units=ca`
+        `https://api.darksky.net/forecast/${process.env.REACT_APP_DARKSKY_KEY}/${quardinates[0]},${quardinates[1]}?units=ca`
       );
       const daily = Data.data.daily.data;
       const currently = Data.data.currently;
