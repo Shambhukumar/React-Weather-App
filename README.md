@@ -1,6 +1,6 @@
 
 ## Live 24X7
-**Please  Visit = https://live24x7.herokuapp.com/**
+**Please  Visit = https://live24-7.herokuapp.com/**
 This is A Weather Forcast Application which gives you the weather information for a given location (Completely Made With React.js)
 
 ## Technologies And Data
