@@ -69,7 +69,7 @@ class App extends React.Component {
   getWeatherData = async (change, quardinates) => {
     this.setState({ loading: true });
     try {
-      const Data = await axios(
+      const Data = await axios.get(
         `https://api.darksky.net/forecast/${process.env.REACT_APP_DARKSKY_KEY}/${quardinates[0]},${quardinates[1]}?units=ca`
       );
       const daily = Data.data.daily.data;
