@@ -65,13 +65,13 @@ const Section1 = React.memo((props) => {
           placeholder="&#xf002; City, Place, Country, Pin Code "
           onKeyUpCapture={(e) => doSearch(e, e.key)}
         />
-        <div className="searchAndMap__address">
+        {/* <div className="searchAndMap__address">
           <ul>{props.address.length !== NaN && address}</ul>
-        </div>
+        </div> */}
       </div>
-
       <div className="searchAndMap__mapbox">
-        <Mapbox cordinates={props.cordinates} key={props.cordinates[0]} />
+        
+        <Mapbox cordinates={[props.cordinates.lat, props.cordinates.lon]} key={props.cordinates[0]} />
       </div>
     </section>
   );

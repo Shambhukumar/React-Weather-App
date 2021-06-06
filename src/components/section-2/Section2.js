@@ -5,6 +5,11 @@ import Card from "../card/Card";
 import Icons from "../icons/icons";
 
 const Section2 = (props) => {
+  console.log(props.CurrentData)
+  const  {name, dt} = props.CurrentData
+  const {humidity, temp, feels_like} = props.CurrentData.main
+  const {description} = props.CurrentData.weather[0]
+  const {speed} = props.CurrentData.wind
   const val = false;
   const Time = (time, offset, val) => {
     const d = new Date(time * 1000);
@@ -20,8 +25,28 @@ const Section2 = (props) => {
     return nd.toLocaleString().split(",")[1];
   };
 
-  const cardJsx = props.daily.map((e, i) => {
-    return <Card data={e} key={i} Time={Time} offset={props.offset} />;
+  console.log(props.hourly)
+
+  const dailyData=[];
+  let today = [];
+    props.hourly.list.map((item, i) => {
+      const day =  item.dt_txt.split(" ");
+      if(i === 0){
+        today.push(item)
+      }
+      else if(i > 0 && props.hourly.list[--i].dt_txt.split(" ")[0] === day[0]){
+        today.push(item)
+      }
+      else{
+        dailyData.push({date : today[0].dt_txt, data: today}) 
+        today = [];
+       
+      }
+    });
+    console.log(dailyData)
+
+  const cardJsx = dailyData.map((e, i) => {
+    return <Card data={e.data} date={e.date} key={i} Time={Time} offset={props.offset} />;
   });
   const TempCalc = (temp) => {
     if (temp === 0) return temp;
@@ -37,43 +62,42 @@ const Section2 = (props) => {
       <div className="dataAndInfo__current">
         <div className="dataAndInfo__current--location">
           <span>
-            {props.address.split(" ").length < 4
-              ? props.address
-              : props.address.split(" ").splice(0, 3).join(" ") + "..."}
+            {name}
           </span>
         </div>
         <div className="dataAndInfo__current--data">
           <div className="dataAndInfo__current--data--icon">
             <div className="dataAndInfo__current--data--icon-svg">
-              <Icons weIcon={props.current.icon} />
+             <Icons />
             </div>
-            <h3
-              style={
-                props.current.summary.split(" ").length > 2
-                  ? { fontSize: "0.9rem" }
-                  : { fontSize: "1rem" }
-              }
+             <h3
+              // style={
+              //   props.current.summary.split(" ").length > 2
+              //     ? { fontSize: "0.9rem" }
+              //     : { fontSize: "1rem" }
+              // }
             >
-              {props.current.summary}
+              {description}
             </h3>
           </div>
           <ul className="dataAndInfo__current--data--info">
-            <li className="dataAndInfo__current--data--info-date">
-              {Time(props.current.time, props.offset, true)}
+             <li className="dataAndInfo__current--data--info-date">
+              {Time(dt, props.offset, true)}
             </li>
+           
             <li className="dataAndInfo__current--data--info-preciption">
-              Preciption {TempCalc(props.current.precipProbability)}%
+               Preciption {props.CurrentData.clouds.all}% 
             </li>
             <li className="dataAndInfo__current--data--info-humidity">
-              Humidity {TempCalc(props.current.humidity)}%
+               Humidity {humidity}% 
             </li>
             <li className="dataAndInfo__current--data--info-wind">
-              Wind {Math.round(props.current.windSpeed)} km/h
-            </li>
+                Wind {speed} km/h 
+            </li> 
           </ul>
           <div className="dataAndInfo__current--data-temp">
             <div>
-              <span>{Math.round(props.current.temperature)}&#176;</span>
+              <span>{Math.round(temp)}&#176;</span>
               <p
                 style={{
                   display: "inline-block",
@@ -87,7 +111,7 @@ const Section2 = (props) => {
               </p>
             </div>
             <h3>
-              Feels Like {Math.round(props.current.apparentTemperature)}&#176;
+              Feels Like {Math.round(feels_like)}&#176;
             </h3>
           </div>
         </div>

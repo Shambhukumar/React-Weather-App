@@ -23,10 +23,12 @@ class Card extends React.Component {
     }
     return Math.round(temp.toString().split(".")[1]);
   };
+  
   render() {
     const iconjsx = <Icons weIcon={this.props.data.icon} />;
     return (
       <div className="Card" key={this.props.keys}>
+        {console.log()}
         <div onClick={(e) => this.togglePanel(e)} className="header">
           {/* {this.props.title} <span>Hello World</span> */}
           <div className="Card__header">
@@ -36,15 +38,11 @@ class Card extends React.Component {
               </div>
               <div className="Card__header--data-date">
                 <span>
-                  {this.props.Time(
-                    this.props.data.time,
-                    this.props.offset,
-                    true
-                  )}
+                  {this.props.date.split(" ")[0]}
                 </span>
               </div>
               <div className="Card__header--data-temp">
-                <span>{Math.round(this.props.data.temperatureMax)}&#176;</span>
+                <span>{Math.round(this.props.data[0].main.temp_max)}&#176;</span>
                 &nbsp;
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +65,7 @@ class Card extends React.Component {
                 </svg>
               </div>
               <div className="Card__header--data-humi">
-                <span>Humidity {this.TempCalc(this.props.data.humidity)}%</span>
+                <span>Humidity {this.props.data[0].main.humidity}%</span>
               </div>
             </div>
           </div>
@@ -83,7 +81,7 @@ class Card extends React.Component {
               <div className="Card__content--temp">
                 <div className="Card__content--temp--min">
                   <span>
-                    Min {Math.round(this.props.data.temperatureMin)}&#176;
+                    {/* Min {Math.round(this.props.data.temperatureMin)}&#176; */}
                   </span>
                   <h5>
                     {this.props.Time(
@@ -94,7 +92,7 @@ class Card extends React.Component {
                 </div>
                 <div className="Card__content--temp--max">
                   <span>
-                    Max {Math.round(this.props.data.temperatureMax)}&#176;
+                    {/* Max {Math.round(this.props.data.temperatureMax)}&#176; */}
                   </span>
                   <h5>
                     {this.props.Time(
@@ -142,27 +140,27 @@ class Card extends React.Component {
                 <ul>
                   <li>
                     DewPoint &nbsp; &nbsp;{" "}
-                    {Math.round(this.props.data.dewPoint)}
+                    {/* {Math.round(this.props.data.dewPoint)} */}
                     &#176;
                   </li>
                   <li>
                     Humidity &nbsp; &nbsp;{" "}
-                    {this.TempCalc(this.props.data.humidity)}%
+                    {/* {this.TempCalc(this.props.data.humidity)}% */}
                   </li>
                   <li>
-                    Wind Speed {Math.round(this.props.data.windSpeed)}KM/h
+                    {/* Wind Speed {Math.round(this.props.data.windSpeed)}KM/h */}
                   </li>
                   <li>
                     Preciption &nbsp;{" "}
-                    {this.TempCalc(this.props.data.precipProbability)}%
+                    {/* {this.TempCalc(this.props.data.precipProbability)}% */}
                   </li>
                   <li>
                     Pressure &nbsp;&nbsp;&nbsp;{" "}
-                    {Math.round(this.props.data.pressure)}ps
+                    {/* {Math.round(this.props.data.pressure)}ps */}
                   </li>
                   <li>
                     Visibility &nbsp; &nbsp;{" "}
-                    {Math.round(this.props.data.visibility)}Km
+                    {/* {Math.round(this.props.data.visibility)}Km */}
                   </li>
                 </ul>
               </div>
