@@ -8,7 +8,7 @@ const Section2 = (props) => {
   console.log(props.CurrentData)
   const  {name, dt} = props.CurrentData
   const {humidity, temp, feels_like} = props.CurrentData.main
-  const {description} = props.CurrentData.weather[0]
+  const {description, icon} = props.CurrentData.weather[0]
   const {speed} = props.CurrentData.wind
   const val = false;
   const Time = (time, offset, val) => {
@@ -45,9 +45,9 @@ const Section2 = (props) => {
     });
     console.log(dailyData)
 
-  const cardJsx = dailyData.map((e, i) => {
-    return <Card data={e.data} date={e.date} key={i} Time={Time} offset={props.offset} />;
-  });
+  // const cardJsx = dailyData.map((e, i) => {
+  //   return <Card data={e.data} date={e.date} key={i} Time={Time} offset={props.offset} />;
+  // });
   const TempCalc = (temp) => {
     if (temp === 0) return temp;
     if (temp === 1) return 100;
@@ -68,7 +68,7 @@ const Section2 = (props) => {
         <div className="dataAndInfo__current--data">
           <div className="dataAndInfo__current--data--icon">
             <div className="dataAndInfo__current--data--icon-svg">
-             <Icons />
+            <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`}  className="dataAndInfo__current--data--icon-svg--icon" alt={description} className="Card__allDay--icon"/>
             </div>
              <h3
               // style={
@@ -116,7 +116,9 @@ const Section2 = (props) => {
           </div>
         </div>
       </div>
-      <div className="dataAndInfo__Cards">{cardJsx}</div>
+      <div className="dataAndInfo__Cards">
+      <Card data={dailyData}/>
+      </div>
     </div>
   );
 };
