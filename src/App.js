@@ -40,12 +40,12 @@ class App extends React.Component {
     try {
       const Data = await axios(
         
-        `http://api.openweathermap.org/data/2.5/forecast?q=${place}&units=metric&appid=e1303a5d026677bc510f2c3948b0a789
+        `https://api.openweathermap.org/data/2.5/forecast?q=${place}&units=metric&appid=e1303a5d026677bc510f2c3948b0a789
         `
       );
       const Current = await axios(
         
-        `http://api.openweathermap.org/data/2.5/weather?q=${place}&units=metric&appid=e1303a5d026677bc510f2c3948b0a789
+        `https://api.openweathermap.org/data/2.5/weather?q=${place}&units=metric&appid=e1303a5d026677bc510f2c3948b0a789
         `
       );
       const CurrentData = Current.data
