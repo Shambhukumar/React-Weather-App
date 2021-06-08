@@ -1,10 +1,11 @@
-import React from "react";
+import React,  {useState} from "react";
 import "./Card.scss";
 import Chart from "../chart/chart";
 // import { CSSTransition } from "react-transition-group";
 import Icons from "../icons/icons";
 const Card = (props) => {
  
+  const [timedata, setTimeData] = useState({data: props.data[0].data, date: props.data[0].date})
 
   const Time = (time, offset, val) => {
     const d = new Date(time * 1000);
@@ -19,11 +20,12 @@ const Card = (props) => {
 
     return nd.toLocaleString().split(",")[1];
   };
+  
 
-  const jsx = (data) =>{
-    if(!data){
-      data = props.data[0].data
-    }
+  const jsx = () =>{
+   
+     const data = timedata.data
+    
     console.log(data)
     const {temp_max, temp_min, humidity, pressure} = data[0].main
     const {visibility, pop} = data[0]
@@ -33,7 +35,7 @@ const Card = (props) => {
     return (
       <div className="Card__details__info">
         <div className="Card__details__info--chart">
-          <Chart/>
+          <Chart data={timedata.data} date={timedata.date}/>
         </div>
         <div className="Card__details__info--data">
           <ul>
@@ -59,7 +61,7 @@ const Card = (props) => {
       const  {icon, description} = e.data[0].weather[0];
       const date = e.data[0].dt;
       return(
-        <ul key={i}>
+        <ul key={i} onClick={()=> setTimeData({data:e.data, date: e.date})} className={`${e.date === timedata.date ? "active": "not-active"}`}>
           <li>
             {Time(date, null, true)}
           </li>

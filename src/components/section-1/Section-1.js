@@ -16,36 +16,39 @@ const Section1 = React.memo((props) => {
       }
       return;
     }
-
-    clearTimeout(timeout);
-    timeout = setTimeout(() => {
-      props.cordinatesFun(searchText, key);
-      if (!input) {
-        setTimeout(() => {
-          setinput(true);
-        }, 800);
-      }
-    }, 800);
+    if(key === "Enter"){
+      props.newPlace(searchText)
+    }
+    
+    // clearTimeout(timeout);
+    // timeout = setTimeout(() => {
+    //   props.cordinatesFun(searchText, key);
+    //   if (!input) {
+    //     setTimeout(() => {
+    //       setinput(true);
+    //     }, 800);
+    //   }
+    // }, 800);
   };
 
-  input
-    ? (address = props.address.map((e, i) => {
-        return (
-          <li
-            key={i}
-            className="address"
-            onClick={() =>
-              props.setCordinates(
-                e.geocodePoints[0].coordinates,
-                e.address.formattedAddress
-              )
-            }
-          >
-            {e.name}
-          </li>
-        );
-      }))
-    : (address = null);
+  // input
+  //   ? (address = props.address.map((e, i) => {
+  //       return (
+  //         <li
+  //           key={i}
+  //           className="address"
+  //           onClick={() =>
+  //             props.setCordinates(
+  //               e.geocodePoints[0].coordinates,
+  //               e.address.formattedAddress
+  //             )
+  //           }
+  //         >
+  //           {e.name}
+  //         </li>
+  //       );
+  //     }))
+  //   : (address = null);
 
   return (
     <section className="searchAndMap">

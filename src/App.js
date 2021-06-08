@@ -22,83 +22,36 @@ class App extends React.Component {
       address: null,
       offset: null,
       locations: null,
+      place: "New Delhi",
       error: false,
     };
   }
   componentDidMount() {
   this.getWeatherData()
 
-    // this.getCordinates("New delhi", false);
   }
 
-  // getCordinates = async (query, key) => {
-  //   let results;
-  //   let locations = [];
-  //   this.setState({ locations });
-  //   try {
-  //     results = await axios.get(
-  //       `https://dev.virtualearth.net/REST/v1/Locations?q=${query}&output=json&key=AtrQToJAENomvHwO3jzdgpvoATjElgF2ITUt6TMgIWsJUqQfCHKMcMVRxRvQyMpm`
-  //     );
 
-  //     if (results) {
-  //       this.setState({ results });
-  //       locations = results.data.resourceSets[0].resources;
-  //       this.setState({ locations });
-  //       if (key === "Enter" || this.state.loading === true) {
-  //         const quardinates =
-  //           results.data.resourceSets[0].resources[0].geocodePoints[0]
-  //             .coordinates;
-  //         this.setState({ quardinates });
-  //         this.getWeatherData(true, quardinates);
-  //       }
-  //     }
-  //   } catch (e) {
-  //     swal({
-  //       title: "Oops",
-  //       text: "We are unable to locate this location.",
-  //       icon: "error",
-  //       button: "Try Again",
-  //     });
-  //   }
-  // };
-
-  // setCordinates = (quardinates, address) => {
-  //   this.setState({ quardinates });
-
-  //   this.getWeatherData(false, quardinates);
-  //   this.setState({ address });
-  // };
-
-  getWeatherData = async (change, quardinates) => {
+  getWeatherData = async (place) => {
     this.setState({ loading: true });
+    if(!place){
+      place = this.state.place
+    }
     try {
       const Data = await axios(
         
-        `http://api.openweathermap.org/data/2.5/forecast?q=New%20delhi&units=metric&appid=e1303a5d026677bc510f2c3948b0a789
+        `http://api.openweathermap.org/data/2.5/forecast?q=${place}&units=metric&appid=e1303a5d026677bc510f2c3948b0a789
         `
       );
       const Current = await axios(
         
-        `http://api.openweathermap.org/data/2.5/weather?q=New%20delhi&units=metric&appid=e1303a5d026677bc510f2c3948b0a789
+        `http://api.openweathermap.org/data/2.5/weather?q=${place}&units=metric&appid=e1303a5d026677bc510f2c3948b0a789
         `
       );
-      // console.log(Current)
       const CurrentData = Current.data
       const hourly = Data.data;
-      // const currently = Data.data.currently;
-      // const offset = Data.data.offset;
-
-      // if (change) {
-      //   const address = this.state.results.data.resourceSets[0].resources[0]
-      //     .address.formattedAddress;
-      //   this.setState({ address });
-      // }
-        // console.log(Data)
       this.setState({ CurrentData });
       this.setState({hourly})
-      // console.log(hourly)
-      // this.setState({ currently });
-      // this.setState({ offset });
       this.setState({ loading: false });
     } catch (e) {
       console.log(e)
@@ -110,6 +63,10 @@ class App extends React.Component {
       });
     }
   };
+
+  changePlace = (place)=>{
+    this.getWeatherData(place)
+  }
 
   render() {
     return this.state.loading ? (
@@ -125,10 +82,9 @@ class App extends React.Component {
             <div className="App__Section--1">
               {!this.state.loading && (
                 <Section1
-                  // cordinatesFun={this.getCordinates}
                   cordinates={this.state.CurrentData.coord}
                   address={this.state.name}
-                  // setCordinates={this.setCordinates}
+                  newPlace={this.changePlace}
                 />
               )}
             </div>
